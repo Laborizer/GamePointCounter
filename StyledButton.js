@@ -18,15 +18,18 @@ export default class StyledButton extends React.PureComponent {
 
 const styles = StyleSheet.create({
   button: {
-    margin: 5,
-    padding: 3,
+    padding: 5,
     borderRadius: 3,
-    borderColor: "#0667b4",
+    borderColor: "#74ae78",
     borderWidth: 1,
-    backgroundColor: "#1297de",
+    backgroundColor: "#8bdd92",
+    minHeight: 40,
+    minWidth: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
-    color: '#e67e22',
-    textAlign: center,
+    color: '#fff',
+    textAlign: 'center',
   }
 });
