@@ -27,8 +27,8 @@
 	    "bundleIdentifier": "fi.tamk.laiho.gamepointcounter",
       "supportsTablet": true
     },
-	"android": {
-	  "package": "fi.tamk.laiho.gamepointcounter"
-	},
+    "android": {
+      "package": "fi.tamk.laiho.gamepointcounter"
+    }
   }
 }
