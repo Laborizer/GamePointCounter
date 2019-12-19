@@ -109,7 +109,9 @@ export default class GameSettingScreen extends React.Component {
             />
           </View>
         </View>
-        <StyledButton title="Start Game!" onPress={() => this.handleClick()}></StyledButton>
+        <View style={styles.buttonsContainer}>
+          <StyledButton title="Start Game!" onPress={() => this.handleClick()}></StyledButton>
+        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -123,10 +125,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center'
   },
+  startButton: {
+    
+  },
   buttonsContainer: {
-    flex: 1,
+    flex: 0.5,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     //backgroundColor: '#e4bc91',
   },
