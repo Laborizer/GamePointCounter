@@ -49,7 +49,7 @@ export default class GameSettingScreen extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset = {60} behavior="height" enabled>
+      <View style={styles.container}>
         <View style={styles.textAreaContainer}>
           <TextInput
             style={styles.textArea}
@@ -112,7 +112,7 @@ export default class GameSettingScreen extends React.Component {
         <View style={styles.buttonsContainer}>
           <StyledButton title="Start Game!" onPress={() => this.handleClick()}></StyledButton>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }
