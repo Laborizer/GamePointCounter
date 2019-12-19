@@ -4,6 +4,7 @@ import StyledButton from './StyledButton.js'
 
 export default class GamePointCounter extends Component {
   state = {
+    pointIncrement: this.props.PointIncrement,
     team1Name: "Team1",
     team2Name: "Team2",
     team1Points: 0,
@@ -12,25 +13,25 @@ export default class GamePointCounter extends Component {
 
   handleClick = (buttonId) => {
     if (buttonId == 0) {
-      this.setState({team1Points: this.state.team1Points + 1})
+      this.setState({team1Points: this.state.team1Points + +this.state.pointIncrement})
     } else if (buttonId == 1) {
-      this.setState({team1Points: this.state.team1Points - 1})
+      this.setState({team1Points: this.state.team1Points - +this.props.PointIncrement})
     } else if (buttonId == 2) {
       this.setState({team1Points: 0})
       this.setState({team2Points: 0})
       Alert.alert("Points were reset!");
     } else if (buttonId == 3) {
-      this.setState({team2Points: this.state.team2Points + 1})
+      this.setState({team2Points: this.state.team2Points + +this.props.PointIncrement})
     } else if (buttonId == 4) {
-      this.setState({team2Points: this.state.team2Points - 1})
+      this.setState({team2Points: this.state.team2Points - +this.props.PointIncrement})
     }
   }
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.teamLabelContainer}>
-          <Text style={styles.teamNameText}>{this.state.team1Name}</Text>
-          <Text style={styles.teamNameText}>{this.state.team2Name}</Text>
+          <Text style={styles.teamNameText}>{this.props.Team1Name}</Text>
+          <Text style={styles.teamNameText}>{this.props.Team2Name}</Text>
         </View>
         <View style={styles.teamsContainer}>
           <View style={styles.team1Container}>
