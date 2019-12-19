@@ -5,8 +5,8 @@ import StyledButton from './StyledButton.js'
 export default class GamePointCounter extends Component {
   state = {
     pointIncrement: this.props.PointIncrement,
-    team1Name: "Team1",
-    team2Name: "Team2",
+    team1Name: this.props.Team1Name,
+    team2Name: this.props.Team2Name,
     team1Points: 0,
     team2Points: 0,
   }
