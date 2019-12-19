@@ -11,6 +11,19 @@ export default class GamePointCounter extends Component {
     team2Points: 0,
   }
 
+  winRound = (teamName) => {
+    Alert.alert(`${teamName} won the round!`)
+    this.props.onWin()
+  }
+
+  checkWin = () => {
+    if (this.state.team1Points >= this.props.WinPoints) {
+      this.winRound(this.state.team1Name)
+    } else if (this.state.team2Points >= this.props.WinPoints) {
+      this.winRound(this.state.team2Name)
+    }
+  }
+
   handleClick = (buttonId) => {
     if (buttonId == 0) {
       this.setState({team1Points: this.state.team1Points + +this.state.pointIncrement})
@@ -25,6 +38,8 @@ export default class GamePointCounter extends Component {
     } else if (buttonId == 4) {
       this.setState({team2Points: this.state.team2Points - +this.props.PointIncrement})
     }
+
+    setTimeout(this.checkWin, 100)
   }
   render() {
     return (

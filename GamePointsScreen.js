@@ -13,6 +13,10 @@ export default class GamePointsScreen extends React.Component {
     };
   };
 
+  postVictory = () => {
+    this.props.navigation.navigate('GameSettings')
+  }
+
   render() {
     const {navigation} = this.props
     return (
@@ -22,6 +26,7 @@ export default class GamePointsScreen extends React.Component {
           Team2Name={this.props.navigation.getParam('Team2Name', 'DefaultTeam 2')}
           PointIncrement={this.props.navigation.getParam('PointIncrement', 1)}
           WinPoints={this.props.navigation.getParam('WinPoints', 3)}
+          onWin={this.postVictory}
         />
       </View>
     );
