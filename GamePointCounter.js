@@ -33,6 +33,23 @@ export default class GamePointCounter extends Component {
     }
   }
 
+  timerTick = () => {
+    this.interval = setInterval(() => {
+      this.setState(prevState => ({
+        timeRound: prevState.timeRound + 1,
+        timeGame: prevState.timeGame + 1
+      }));
+    }, 1000);
+  }
+
+  componentDidMount() {
+    this.timerTick()
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
   handleClick = (buttonId) => {
     if (buttonId == 0) {
       this.setState({team1Points: this.state.team1Points + +this.state.pointIncrement})
