@@ -9,11 +9,20 @@ export default class GamePointCounter extends Component {
     team2Name: this.props.Team2Name,
     team1Points: 0,
     team2Points: 0,
+    team1Rounds: 0,
+    team2Rounds: 0,
+    timeRound: 0,
+    timeGame: 0,
   }
 
   winRound = (teamName) => {
     Alert.alert(`${teamName} won the round!`)
-    this.props.onWin()
+    //this.props.onWin()
+    if (teamName == this.state.team1Name) {
+      this.setState({team1Rounds: this.state.team1Rounds + 1, team1Points: 0, team2Points: 0})
+    } else if (teamName == this.state.team2Name) {
+      this.setState({team2Rounds: this.state.team2Rounds + 1, team1Points: 0, team2Points: 0})
+    }
   }
 
   checkWin = () => {
@@ -30,9 +39,8 @@ export default class GamePointCounter extends Component {
     } else if (buttonId == 1) {
       this.setState({team1Points: this.state.team1Points - +this.props.PointIncrement})
     } else if (buttonId == 2) {
-      this.setState({team1Points: 0})
-      this.setState({team2Points: 0})
-      Alert.alert("Points were reset!");
+      this.setState({team1Points: 0, team2Points: 0, team1Rounds: 0, team2Rounds: 0})
+      Alert.alert("Scores were reset!");
     } else if (buttonId == 3) {
       this.setState({team2Points: this.state.team2Points + +this.props.PointIncrement})
     } else if (buttonId == 4) {
@@ -50,10 +58,12 @@ export default class GamePointCounter extends Component {
         </View>
         <View style={styles.teamsContainer}>
           <View style={styles.team1Container}>
-            <Text style={styles.teamNameText}>{this.state.team1Points}</Text>
+            <Text style={styles.teamScoreText}>Points: {this.state.team1Points}</Text>
+            <Text style={styles.teamScoreText}>Rounds: {this.state.team1Rounds}</Text>
           </View>
           <View style={styles.team2Container}>
-            <Text style={styles.teamNameText}>{this.state.team2Points}</Text>
+            <Text style={styles.teamScoreText}>Points: {this.state.team2Points}</Text>
+            <Text style={styles.teamScoreText}>Rounds: {this.state.team2Rounds}</Text>
           </View>
         </View>
         <View style={styles.buttonsContainer}>
@@ -88,6 +98,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#fff'
   },
+  teamScoreText: {
+    alignSelf: 'center',
+    textAlign: "center",
+    fontSize: 24,
+    color: '#fff'
+  },
   teamsContainer: {
     flex: 2,
     flexDirection: 'row',
@@ -97,7 +113,7 @@ const styles = StyleSheet.create({
   },
   team1Container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#82d3ff',
@@ -108,7 +124,7 @@ const styles = StyleSheet.create({
   },
   team2Container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fe7276',
