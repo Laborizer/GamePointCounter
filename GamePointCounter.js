@@ -42,6 +42,21 @@ export default class GamePointCounter extends Component {
     }, 1000);
   }
 
+  formatTime = (secs) => {
+    var secondsAsNumber = parseInt(secs, 10)
+    var seconds = secondsAsNumber % 60
+    var minutes = Math.floor(secondsAsNumber / 60) % 60
+
+    if (minutes < 10) {
+      minutes = "0" + minutes
+    }
+    if (seconds < 10) {
+      seconds = "0"+ seconds
+    }
+    var time = minutes + ':' + seconds
+    return time
+  }
+
   componentDidMount() {
     this.timerTick()
   }
@@ -83,6 +98,10 @@ export default class GamePointCounter extends Component {
             <Text style={styles.teamScoreText}>Rounds: {this.state.team2Rounds}</Text>
           </View>
         </View>
+        <View style={styles.timerContainer}>
+            <Text style={styles.timerText}>{this.formatTime(this.state.timeGame)}</Text>
+            <Text style={styles.roundTimerText}>{this.formatTime(this.state.timeRound)}</Text>
+          </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonsContainer}>
             <StyledButton title="+" onPress={() => this.handleClick(0)}></StyledButton>
@@ -149,6 +168,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: '#ea4d4d',
     borderWidth: 4,
+  },
+  timerContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  timerText: {
+    alignSelf: 'center',
+    textAlign: "center",
+    fontSize: 24,
+    color: '#fff'
+  },
+  roundTimerText: {
+    alignSelf: 'center',
+    textAlign: "center",
+    fontSize: 18,
+    color: '#fff'
   },
   buttonsContainer: {
     flex: 1,
