@@ -19,9 +19,9 @@ export default class GamePointCounter extends Component {
     Alert.alert(`${teamName} won the round!`)
     //this.props.onWin()
     if (teamName == this.state.team1Name) {
-      this.setState({team1Rounds: this.state.team1Rounds + 1, team1Points: 0, team2Points: 0})
+      this.setState({team1Rounds: this.state.team1Rounds + 1, team1Points: 0, team2Points: 0, timeRound: 0})
     } else if (teamName == this.state.team2Name) {
-      this.setState({team2Rounds: this.state.team2Rounds + 1, team1Points: 0, team2Points: 0})
+      this.setState({team2Rounds: this.state.team2Rounds + 1, team1Points: 0, team2Points: 0, timeRound: 0})
     }
   }
 
@@ -71,7 +71,14 @@ export default class GamePointCounter extends Component {
     } else if (buttonId == 1) {
       this.setState({team1Points: this.state.team1Points - +this.props.PointIncrement})
     } else if (buttonId == 2) {
-      this.setState({team1Points: 0, team2Points: 0, team1Rounds: 0, team2Rounds: 0})
+      this.setState({
+        team1Points: 0, 
+        team2Points: 0, 
+        team1Rounds: 0, 
+        team2Rounds: 0,
+        timeGame: 0,
+        timeRound: 0
+      })
       Alert.alert("Scores were reset!");
     } else if (buttonId == 3) {
       this.setState({team2Points: this.state.team2Points + +this.props.PointIncrement})
@@ -142,6 +149,8 @@ const styles = StyleSheet.create({
   },
   teamsContainer: {
     flex: 2,
+    marginLeft: 10,
+    marginRight: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
