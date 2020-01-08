@@ -10,6 +10,10 @@ export default class GamePointsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.getParam('GameName', 'Game'),
+      headerStyle: {
+        backgroundColor: '#444955'
+      },
+      headerTintColor: '#fff'
     };
   };
 
