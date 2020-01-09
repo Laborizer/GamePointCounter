@@ -8,6 +8,10 @@ export default class GameSettingScreen extends React.Component {
 
   static navigationOptions = {
     title: 'Game Settings',
+    headerStyle: {
+      backgroundColor: '#444955'
+    },
+    headerTintColor: '#fff'
   }
 
   state = {
@@ -57,8 +61,9 @@ export default class GameSettingScreen extends React.Component {
             onChangeText={(GameName) => this.setState({GameName})}
             value={this.state.GameName}
             underlineColorAndroid="transparent"
-            placeholder="Name of the game"
+            placeholder="Name of the game (max 20)"
             placeholderTextColor="#b8bbc7"
+            maxLength = {20}
           />
         </View>
         <View style={styles.textAreaContainer}>
@@ -68,8 +73,9 @@ export default class GameSettingScreen extends React.Component {
             value={this.state.Team1Name}
             style={styles.textArea}
             underlineColorAndroid="transparent"
-            placeholder="Team 1 name"
+            placeholder="Team 1 name (max 14)"
             placeholderTextColor="#b8bbc7"
+            maxLength = {14}
           />
         </View>
         <View style={styles.textAreaContainer}>
@@ -79,8 +85,9 @@ export default class GameSettingScreen extends React.Component {
             onChangeText={(Team2Name) => this.setState({Team2Name})}
             value={this.state.Team2Name}
             underlineColorAndroid="transparent"
-            placeholder="Team 2 name"
+            placeholder="Team 2 name (max 14)"
             placeholderTextColor="#b8bbc7"
+            maxLength = {14}
           />
         </View>
         <View style={styles.numberInputsContainer}>

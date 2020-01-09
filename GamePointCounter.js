@@ -9,11 +9,20 @@ export default class GamePointCounter extends Component {
     team2Name: this.props.Team2Name,
     team1Points: 0,
     team2Points: 0,
+    team1Rounds: 0,
+    team2Rounds: 0,
+    timeRound: 0,
+    timeGame: 0,
   }
 
   winRound = (teamName) => {
     Alert.alert(`${teamName} won the round!`)
-    this.props.onWin()
+    //this.props.onWin()
+    if (teamName == this.state.team1Name) {
+      this.setState({team1Rounds: this.state.team1Rounds + 1, team1Points: 0, team2Points: 0, timeRound: 0})
+    } else if (teamName == this.state.team2Name) {
+      this.setState({team2Rounds: this.state.team2Rounds + 1, team1Points: 0, team2Points: 0, timeRound: 0})
+    }
   }
 
   checkWin = () => {
@@ -24,15 +33,53 @@ export default class GamePointCounter extends Component {
     }
   }
 
+  timerTick = () => {
+    this.interval = setInterval(() => {
+      this.setState(prevState => ({
+        timeRound: prevState.timeRound + 1,
+        timeGame: prevState.timeGame + 1
+      }));
+    }, 1000);
+  }
+
+  formatTime = (secs) => {
+    var secondsAsNumber = parseInt(secs, 10)
+    var seconds = secondsAsNumber % 60
+    var minutes = Math.floor(secondsAsNumber / 60) % 60
+
+    if (minutes < 10) {
+      minutes = "0" + minutes
+    }
+    if (seconds < 10) {
+      seconds = "0"+ seconds
+    }
+    var time = minutes + ':' + seconds
+    return time
+  }
+
+  componentDidMount() {
+    this.timerTick()
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
   handleClick = (buttonId) => {
     if (buttonId == 0) {
       this.setState({team1Points: this.state.team1Points + +this.state.pointIncrement})
     } else if (buttonId == 1) {
       this.setState({team1Points: this.state.team1Points - +this.props.PointIncrement})
     } else if (buttonId == 2) {
-      this.setState({team1Points: 0})
-      this.setState({team2Points: 0})
-      Alert.alert("Points were reset!");
+      this.setState({
+        team1Points: 0, 
+        team2Points: 0, 
+        team1Rounds: 0, 
+        team2Rounds: 0,
+        timeGame: 0,
+        timeRound: 0
+      })
+      Alert.alert("Scores were reset!");
     } else if (buttonId == 3) {
       this.setState({team2Points: this.state.team2Points + +this.props.PointIncrement})
     } else if (buttonId == 4) {
@@ -50,12 +97,18 @@ export default class GamePointCounter extends Component {
         </View>
         <View style={styles.teamsContainer}>
           <View style={styles.team1Container}>
-            <Text style={styles.teamNameText}>{this.state.team1Points}</Text>
+            <Text style={styles.teamScoreText}>Points: {this.state.team1Points}</Text>
+            <Text style={styles.teamScoreText}>Rounds: {this.state.team1Rounds}</Text>
           </View>
           <View style={styles.team2Container}>
-            <Text style={styles.teamNameText}>{this.state.team2Points}</Text>
+            <Text style={styles.teamScoreText}>Points: {this.state.team2Points}</Text>
+            <Text style={styles.teamScoreText}>Rounds: {this.state.team2Rounds}</Text>
           </View>
         </View>
+        <View style={styles.timerContainer}>
+            <Text style={styles.timerText}>{this.formatTime(this.state.timeGame)}</Text>
+            <Text style={styles.roundTimerText}>{this.formatTime(this.state.timeRound)}</Text>
+          </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonsContainer}>
             <StyledButton title="+" onPress={() => this.handleClick(0)}></StyledButton>
@@ -88,8 +141,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#fff'
   },
+  teamScoreText: {
+    alignSelf: 'center',
+    textAlign: "center",
+    fontSize: 24,
+    color: '#fff'
+  },
   teamsContainer: {
     flex: 2,
+    marginLeft: 10,
+    marginRight: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -97,7 +158,7 @@ const styles = StyleSheet.create({
   },
   team1Container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#82d3ff',
@@ -108,7 +169,7 @@ const styles = StyleSheet.create({
   },
   team2Container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fe7276',
@@ -116,6 +177,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: '#ea4d4d',
     borderWidth: 4,
+  },
+  timerContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  timerText: {
+    alignSelf: 'center',
+    textAlign: "center",
+    fontSize: 24,
+    color: '#fff'
+  },
+  roundTimerText: {
+    alignSelf: 'center',
+    textAlign: "center",
+    fontSize: 18,
+    color: '#fff'
   },
   buttonsContainer: {
     flex: 1,
